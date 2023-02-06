@@ -8,7 +8,7 @@ import {message} from "ant-design-vue";
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 let config = {
-    baseURL: '/api',
+    baseURL: process.env.VUE_APP_BASE_URL,
     timeout: 5 * 60 * 1000, // Timeout
     // withCredentials: true, // Check cross-site Access-Control
 };

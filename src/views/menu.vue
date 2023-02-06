@@ -14,16 +14,14 @@
       </template>
       <template #title>系统管理</template>
       <a-menu-item key="CodeSet">卡号管理</a-menu-item>
-      <a-menu-item key="2">Option 10</a-menu-item>
-      <a-menu-item key="3">Option 11</a-menu-item>
-      <a-menu-item key="4">Option 12</a-menu-item>
+      <a-menu-item key="Content">内容管理</a-menu-item>
     </a-sub-menu>
   </a-menu>
 </template>
 
 <script setup>
 import {MailOutlined, QqOutlined, AppstoreOutlined, SettingOutlined} from '@ant-design/icons-vue';
-import {ref, watch} from 'vue'
+import {onMounted, ref, watch} from 'vue'
 import {useRouter} from 'vue-router'
 
 const router = useRouter()
@@ -40,6 +38,9 @@ const titleClick = e => {
 watch(() => openKeys, val => {
   console.log('openKeys', val);
 });
+onMounted(() => {
+  selectedKeys.value = [router.currentRoute.value.name]
+})
 </script>
 
 <style scoped>
