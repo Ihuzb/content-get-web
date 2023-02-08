@@ -4,7 +4,9 @@
       <a-layout-header id="header">
         <div class="header-class">
           <div class="logo-class">第一服务</div>
-          <div>购买文章</div>
+          <div>
+            <a target="_blank" style="color: white" href="https://m.tb.cn/h.UNS6H3t">购买文章</a>
+          </div>
           <div>使用教程</div>
         </div>
       </a-layout-header>
