@@ -24,7 +24,7 @@
         <template #bodyCell="{ column, record }">
           <template v-if="column.key == 'type'">
             <a-tag
-                :color="record.type == 3 ? 'volcano' : record.type == 2? 'geekblue' : 'green'"
+                :color="record.type == 3 ? 'volcano' : record.type == 2? 'geekblue' : record.type == 4? 'red' : 'green'"
             >
               {{ type[record.type] }}
             </a-tag>
