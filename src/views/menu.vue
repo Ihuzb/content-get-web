@@ -14,7 +14,7 @@
       </template>
       <template #title>系统管理</template>
       <a-menu-item key="CodeSet">卡号管理</a-menu-item>
-      <a-menu-item key="Content">内容管理</a-menu-item>
+<!--      <a-menu-item key="Content">内容管理</a-menu-item>-->
     </a-sub-menu>
   </a-menu>
 </template>
