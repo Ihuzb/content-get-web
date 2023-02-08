@@ -7,3 +7,5 @@ export const createCode = (data) => myGet('/createCode', data);
 export const setCodeType = (data) => myGet('/setCodeType', data);
 //获取正文内容
 export const selectContentInfo = (data) => myPost('/selectContentInfo', data);
+//批量修改卡号类型
+export const setCodeTypeAll = (data) => myPost('/setCodeTypeAll', data);

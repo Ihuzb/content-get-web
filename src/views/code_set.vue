@@ -13,9 +13,14 @@
           <DownOutlined/>
         </a-button>
       </a-dropdown>
+      <a-button type="primary" style="margin-left: 20px" @click="saveCode">
+        导出
+        <download-outlined/>
+      </a-button>
     </div>
     <div class="table-class">
-      <a-table :bordered="true" :loading="loading" :dataSource="dataSource" :columns="columns">
+      <a-table :pagination="false" :scroll="{y:800}" :row-selection="rowSelection" rowKey="id" :bordered="true"
+               :loading="loading" :dataSource="dataSource" :columns="columns">
         <template #bodyCell="{ column, record }">
           <template v-if="column.key == 'type'">
             <a-tag
@@ -45,15 +50,39 @@
 </template>
 
 <script setup>
-import {seleceCode, createCode, setCodeType} from '@/api/getInfo'
-import {onMounted, ref} from "vue";
-import {DownOutlined} from '@ant-design/icons-vue';
+import {seleceCode, createCode, setCodeType, setCodeTypeAll} from '@/api/getInfo'
+import {onMounted, reactive, ref, toRaw} from "vue";
+import {DownOutlined, DownloadOutlined} from '@ant-design/icons-vue';
 import {message} from "ant-design-vue";
+import {saveAs} from 'file-saver';
 
+const url = 'http://101.43.103.117/#/Content/';
 const loading = ref(false);
+const selectedRowsInfo = ref([]);
+
 const dataSource = ref([]);
 const type = {1: '有效', 2: '未使用', 3: '已使用'};
 const orgin = {1: '次卡', 2: '月卡'};
+const rowSelection = {
+  onChange: (selectedRowKeys, selectedRows) => {
+    selectedRowsInfo.value = selectedRows.filter(v => v.type == 1);
+  },
+};
+const saveCode = async () => {
+  let selectedRows = selectedRowsInfo.value;
+  if (selectedRows.length) {
+    loading.value = true;
+    let codeList = selectedRows.map(v => v.id);
+    const strData = codeList.map(v => `${url}${v}`).join('\n')
+    const result = new Blob([strData], {type: 'text/plain;charset=utf-8'});
+    saveAs(result, `卡号.txt`);
+    await setCodeTypeAll({code: codeList});
+    getCodeList();
+    // location.reload();
+  } else {
+    message.error('未选择卡号！！')
+  }
+}
 const getCodeList = () => {
   loading.value = true;
   seleceCode().then(res => {
@@ -80,7 +109,7 @@ const setCodeTypeInfo = (item, type) => {
   let {id} = item;
   setCodeType({type, id}).then(res => {
     if (type == 2) {
-      copyToClipboard(`/${id}`);
+      copyToClipboard(`${url}${id}`);
       message.success('生成链接成功，已复制到剪切板！！')
     } else {
       message.success('操作成功！！')
@@ -89,7 +118,7 @@ const setCodeTypeInfo = (item, type) => {
   })
 }
 const handleMenuClick = ({key}) => {
-  createCode({num: 1, orgin: key}).then(res => {
+  createCode({num: 100, orgin: key}).then(res => {
     message.success('生成成功！！')
     getCodeList();
   })
