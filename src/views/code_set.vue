@@ -61,7 +61,7 @@ const loading = ref(false);
 const selectedRowsInfo = ref([]);
 
 const dataSource = ref([]);
-const type = {1: '有效', 2: '未使用', 3: '已使用'};
+const type = {1: '有效', 2: '未使用', 3: '已使用', 4: '已到期'};
 const orgin = {1: '次卡', 2: '月卡'};
 const rowSelection = {
   onChange: (selectedRowKeys, selectedRows) => {
