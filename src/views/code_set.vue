@@ -168,6 +168,11 @@ let columns = [
     key: 'create_time',
   },
   {
+    title: '到期时间',
+    dataIndex: 'end_time',
+    key: 'end_time',
+  },
+  {
     title: '操作',
     dataIndex: 'caozuo',
     key: 'caozuo',

@@ -79,8 +79,6 @@ const getText = () => {
       let data = res.data;
       if (data == 3) {
         message.error("此卡号已失效！！");
-      } else if (data == 1) {
-        message.error("此卡号不可用！！")
       } else {
         let htmlText = $(data);
         htmlText.each(function () {
