@@ -65,7 +65,7 @@ const type = {1: '有效', 2: '未使用', 3: '已使用', 4: '已到期'};
 const orgin = {1: '次卡', 2: '月卡'};
 const rowSelection = {
   onChange: (selectedRowKeys, selectedRows) => {
-    selectedRowsInfo.value = selectedRows.filter(v => v.type == 1);
+    selectedRowsInfo.value = selectedRows;
   },
 };
 const saveCode = async () => {
@@ -73,10 +73,13 @@ const saveCode = async () => {
   if (selectedRows.length) {
     loading.value = true;
     let codeList = selectedRows.map(v => v.id);
+    let setCodeList = selectedRows.filter(v => v.type == 1).map(v => v.id)
     const strData = codeList.map(v => `${url}${v}`).join('\n')
     const result = new Blob([strData], {type: 'text/plain;charset=utf-8'});
     saveAs(result, `卡号.txt`);
-    await setCodeTypeAll({code: codeList});
+    if(setCodeList.length){
+      await setCodeTypeAll({code: setCodeList});
+    }
     getCodeList();
     // location.reload();
   } else {
