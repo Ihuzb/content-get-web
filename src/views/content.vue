@@ -7,7 +7,7 @@
           <div>
             <a target="_blank" style="color: white" href="https://m.tb.cn/h.UNS6H3t">购买文章</a>
           </div>
-          <div>使用教程</div>
+          <div @click="handleCancel">使用教程</div>
         </div>
       </a-layout-header>
       <a-layout-content id="section">
@@ -44,6 +44,29 @@
       </a-layout-content>
     </a-layout>
   </div>
+  <a-modal v-model:visible="visible" :body-style="{'padding':'10px'}">
+    <template #footer>
+      <div style="text-align: center">
+        <a-button key="back" @click="handleCancel">关闭</a-button>
+      </div>
+    </template>
+    <div style="font-size: 16px">
+      <div>
+        文章链接获取方法(手机版)<br/>
+        第一步：打开APP或网站，找到需要的文章
+      </div>
+      <img style="width: 100%;margin: 20px 0px" :src="require('/public/image/img.png')">
+      <div>
+        第二步：打开文章后，点击右上方的 （。。。）分享，复制链接就可以了，复制后直接看第四步，如果没有复制链接，请看第三步
+      </div>
+      <img style="width: 100%;margin: 20px 0px" :src="require('/public/image/img_1.png')">
+      <div>
+        第三步：点击分享，点击更多，在更多种找到浏览器，然后在浏览器里复制链接就可以了！<br/>
+        第四步：粘贴复制好的链接，点击查看文章就可以了
+      </div>
+      <img style="width: 100%;margin: 20px 0px" :src="require('/public/image/img_2.png')">
+    </div>
+  </a-modal>
 </template>
 
 <script setup>
@@ -58,6 +81,7 @@ const router = useRouter();
 
 const mobile = ref(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i));
 const inputValue = ref('');
+const visible = ref(false);
 const textHtmlRef = ref(null);
 const textHtml = ref('');
 const codeInfo = ref('');
@@ -66,7 +90,9 @@ if (!mobile.value) {
   require('@/style/pc.less')
 } else {
   require('@/style/phone.less')
-
+}
+const handleCancel = () => {
+  visible.value = !visible.value;
 }
 const getText = () => {
   if (inputValue.value) {
