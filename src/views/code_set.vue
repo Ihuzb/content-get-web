@@ -62,7 +62,7 @@ import {DownOutlined, DownloadOutlined} from '@ant-design/icons-vue';
 import {message} from "ant-design-vue";
 import {saveAs} from 'file-saver';
 
-const url = 'http://101.43.103.117/#/Content/';
+const url = 'http://101.43.109.118/#/Content/';
 const loading = ref(false);
 const selectedRowsInfo = ref([]);
 
