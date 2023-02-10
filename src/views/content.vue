@@ -37,7 +37,7 @@
             </div>
           </div>
         </div>
-        <a-spin :spinning="spinning">
+        <a-spin :spinning="spinning" tip="数据加载中，请稍后...">
           <div ref="textHtmlRef" class="text-class" v-show="textHtml">
           </div>
         </a-spin>
