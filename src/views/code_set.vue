@@ -24,7 +24,7 @@
         <template #bodyCell="{ column, record }">
           <template v-if="column.key == 'type'">
             <a-tag
-                :color="record.type == 3 ? 'volcano' : record.type == 2? 'geekblue' : record.type == 4? 'red' : 'green'"
+                :color="record.type == 3 ? 'volcano' : record.type == 2? 'geekblue' : (record.type == 4||record.type == 0)? 'red' : 'green'"
             >
               {{ type[record.type] }}
             </a-tag>
@@ -40,7 +40,7 @@
             <div class="caozuo-class">
               <div v-show="record.type == 1" style="color:#1890ff; " @click="setCodeTypeInfo(record,2)">生成</div>
               <div v-show="record.type == 2" style="color:#1890ff; " @click="setCodeTypeInfo(record,1)">取消生成</div>
-              <!--              <div style="margin-left: 20px;color: red">删除</div>-->
+              <div style="margin-left: 20px;color: red" @click="setCodeTypeInfo(record,0)">失效</div>
             </div>
           </template>
         </template>
@@ -61,7 +61,7 @@ const loading = ref(false);
 const selectedRowsInfo = ref([]);
 
 const dataSource = ref([]);
-const type = {1: '有效', 2: '未使用', 3: '已使用', 4: '已到期'};
+const type = {0: '失效', 1: '有效', 2: '未使用', 3: '已使用', 4: '已到期'};
 const orgin = {1: '次卡', 2: '月卡'};
 const rowSelection = {
   onChange: (selectedRowKeys, selectedRows) => {
@@ -77,7 +77,7 @@ const saveCode = async () => {
     const strData = codeList.map(v => `${url}${v}`).join('\n')
     const result = new Blob([strData], {type: 'text/plain;charset=utf-8'});
     saveAs(result, `卡号.txt`);
-    if(setCodeList.length){
+    if (setCodeList.length) {
       await setCodeTypeAll({code: setCodeList});
     }
     getCodeList();
