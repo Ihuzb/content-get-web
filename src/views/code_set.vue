@@ -38,9 +38,13 @@
           </template>
           <template v-if="column.key == 'caozuo'">
             <div class="caozuo-class">
-              <div v-show="record.type == 1" style="color:#1890ff; " @click="setCodeTypeInfo(record,2)">生成</div>
-              <div v-show="record.type == 2" style="color:#1890ff; " @click="setCodeTypeInfo(record,1)">取消生成</div>
-              <div style="margin-left: 20px;color: red" @click="setCodeTypeInfo(record,0)">失效</div>
+              <div v-show="record.type == 1" style="color:#1890ff; margin-right: 20px;"
+                   @click="setCodeTypeInfo(record,2)">生成
+              </div>
+              <div v-show="record.type == 2" style="color:#1890ff; margin-right: 20px;"
+                   @click="setCodeTypeInfo(record,1)">取消生成
+              </div>
+              <div style="color: red" @click="setCodeTypeInfo(record,0)">失效</div>
             </div>
           </template>
         </template>
